@@ -1,3 +1,4 @@
+
 # brew(1) -- The Missing Package Manager for macOS (or Linux)
 
 ## SYNOPSIS
