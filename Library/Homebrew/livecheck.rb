@@ -174,16 +174,18 @@ class Livecheck
       homebrew_curl: T.nilable(T::Boolean),
       post_form:     T.nilable(T::Hash[T.any(String, Symbol), String]),
       post_json:     T.nilable(T::Hash[T.any(String, Symbol), String]),
+      user_agent:    T.nilable(T.any(String, Symbol)),
     ).returns(T.nilable(T.any(String, Symbol)))
   }
-  def url(url = T.unsafe(nil), homebrew_curl: nil, post_form: nil, post_json: nil)
+  def url(url = T.unsafe(nil), homebrew_curl: nil, post_form: nil, post_json: nil, user_agent: nil)
     raise ArgumentError, "Only use `post_form` or `post_json`, not both" if post_form && post_json
 
-    if homebrew_curl || post_form || post_json
+    if homebrew_curl || post_form || post_json || user_agent
       @options = @options.merge({
         homebrew_curl:,
         post_form:,
         post_json:,
+        user_agent:,
       }.compact)
     end
 

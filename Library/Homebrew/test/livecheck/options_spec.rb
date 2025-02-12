@@ -18,6 +18,7 @@ RSpec.describe Homebrew::Livecheck::Options do
       homebrew_curl: true,
       post_form:     post_hash,
       post_json:     post_hash,
+      user_agent:    :browser,
     }
   end
   let(:other_args) do
@@ -33,6 +34,7 @@ RSpec.describe Homebrew::Livecheck::Options do
         homebrew_curl: nil,
         post_form:     nil,
         post_json:     nil,
+        user_agent:    nil,
       })
     end
   end
@@ -43,6 +45,7 @@ RSpec.describe Homebrew::Livecheck::Options do
         homebrew_curl: nil,
         post_form:     nil,
         post_json:     nil,
+        user_agent:    nil,
       })
     end
   end
@@ -53,6 +56,7 @@ RSpec.describe Homebrew::Livecheck::Options do
         "homebrew_curl" => nil,
         "post_form"     => nil,
         "post_json"     => nil,
+        "user_agent"    => nil,
       })
     end
   end

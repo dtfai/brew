@@ -18,20 +18,28 @@ module Homebrew
       sig { returns(T.nilable(T::Hash[T.any(String, Symbol), String])) }
       attr_reader :post_json
 
+      # User agent for curl to use. Symbol arguments should use a value
+      # supported by {Utils::Curl::curl_args}.
+      sig { returns(T.nilable(T.any(String, Symbol))) }
+      attr_reader :user_agent
+
       # @param homebrew_curl whether to use brewed curl
       # @param post_form form data to use when making a `POST` request
       # @param post_json JSON data to use when making a `POST` request
+      # @param user_agent user agent for curl to use
       sig {
         params(
           homebrew_curl: T.nilable(T::Boolean),
           post_form:     T.nilable(T::Hash[T.any(String, Symbol), String]),
           post_json:     T.nilable(T::Hash[T.any(String, Symbol), String]),
+          user_agent:    T.nilable(T.any(String, Symbol)),
         ).void
       }
-      def initialize(homebrew_curl: nil, post_form: nil, post_json: nil)
+      def initialize(homebrew_curl: nil, post_form: nil, post_json: nil, user_agent: nil)
         @homebrew_curl = homebrew_curl
         @post_form = post_form
         @post_json = post_json
+        @user_agent = user_agent
       end
 
       # Returns a `Hash` of options that are provided as arguments to `url`.
@@ -41,6 +49,7 @@ module Homebrew
           homebrew_curl: @homebrew_curl,
           post_form:     @post_form,
           post_json:     @post_json,
+          user_agent:    @user_agent,
         }
       end
 
@@ -51,6 +60,7 @@ module Homebrew
           homebrew_curl: @homebrew_curl,
           post_form:     @post_form,
           post_json:     @post_json,
+          user_agent:    @user_agent,
         }
       end
 
@@ -61,6 +71,7 @@ module Homebrew
           "homebrew_curl" => @homebrew_curl,
           "post_form"     => @post_form,
           "post_json"     => @post_json,
+          "user_agent"    => @user_agent,
         }
       end
 
@@ -85,20 +96,21 @@ module Homebrew
         instance_of?(other.class) &&
           @homebrew_curl == other.homebrew_curl &&
           @post_form == other.post_form &&
-          @post_json == other.post_json
+          @post_json == other.post_json &&
+          @user_agent == other.user_agent
       end
       alias eql? ==
 
       # Whether the object has only default values.
       sig { returns(T::Boolean) }
       def empty?
-        @homebrew_curl.nil? && @post_form.nil? && @post_json.nil?
+        @homebrew_curl.nil? && @post_form.nil? && @post_json.nil? && user_agent.nil?
       end
 
       # Whether the object has any non-default values.
       sig { returns(T::Boolean) }
       def present?
-        !@homebrew_curl.nil? || !@post_form.nil? || !@post_json.nil?
+        !@homebrew_curl.nil? || !@post_form.nil? || !@post_json.nil? || !@user_agent.nil?
       end
     end
   end
